@@ -1,0 +1,41 @@
+{
+  "name": "GreenSoftware - Desarrollo Sostenible",
+  "short_name": "GreenSoftware",
+  "description": "Plataforma educativa sobre desarrollo de software sostenible y eficiencia energética",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1F2937",
+  "theme_color": "#10B981",
+  "orientation": "portrait-primary",
+  "categories": ["education", "productivity", "developer"],
+  "lang": "es",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-16x16.svg",
+      "sizes": "16x16",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/Green-Software.webp",
+      "sizes": "1200x630",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "label": "Vista principal de GreenSoftware"
+    }
+  ]
+}

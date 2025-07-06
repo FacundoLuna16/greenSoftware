@@ -1,0 +1,33 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo con gradiente moderno para iOS -->
+  <rect width="180" height="180" rx="40" fill="url(#gradientIOS)"/>
+  
+  <!-- Hoja verde principal más grande -->
+  <path d="M90 30C105 30 120 45 125 60C127.5 67.5 127.5 77.5 125 82.5C120 105 105 120 90 120C80 120 70 115 65 102.5C60 90 60 77.5 65 67.5C70 52.5 80 30 90 30Z" fill="#10B981"/>
+  
+  <!-- Nervaduras de la hoja más detalladas -->
+  <path d="M90 40L90 110M80 55L100 75M100 55L80 75M85 65L95 75M95 65L85 75" stroke="#065F46" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Elementos tecnológicos distribuidos -->
+  <circle cx="40" cy="40" r="6" fill="#3B82F6"/>
+  <circle cx="140" cy="40" r="6" fill="#3B82F6"/>
+  <circle cx="40" cy="140" r="6" fill="#3B82F6"/>
+  <circle cx="140" cy="140" r="6" fill="#3B82F6"/>
+  <circle cx="40" cy="90" r="4" fill="#6366F1"/>
+  <circle cx="140" cy="90" r="4" fill="#6366F1"/>
+  <circle cx="90" cy="40" r="4" fill="#6366F1"/>
+  <circle cx="90" cy="140" r="4" fill="#6366F1"/>
+  
+  <!-- Red de conexiones tecnológicas -->
+  <path d="M40 40L60 60M140 40L120 60M40 140L60 120M140 140L120 120M40 90L60 90M140 90L120 90M90 40L90 20M90 140L90 160" stroke="#3B82F6" stroke-width="2" opacity="0.4"/>
+  
+  <!-- Gradientes -->
+  <defs>
+    <linearGradient id="gradientIOS" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#111827;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#1F2937;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#374151;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1F2937;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>
