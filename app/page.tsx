@@ -169,24 +169,12 @@ const OptimizedImage = ({
     return { width: finalWidth, height: finalHeight }
   }, [width, height, viewportSize, devicePixelRatio])
 
-  // URL optimizada con parámetros dinámicos
+  // URL optimizada - ahora simplificada para imágenes locales
   const optimizedSrc = useMemo(() => {
-    if (!src.includes('pexels.com') && !src.includes('unsplash.com')) return src
-    
-    // Para Pexels
-    if (src.includes('pexels.com')) {
-      const baseUrl = src.split('?')[0]
-      return `${baseUrl}?auto=compress&cs=tinysrgb&w=${optimizedDimensions.width}&h=${optimizedDimensions.height}&fit=crop&q=${optimizedQuality}`
-    }
-    
-    // Para Unsplash
-    if (src.includes('unsplash.com')) {
-      const baseUrl = src.split('?')[0]
-      return `${baseUrl}?w=${optimizedDimensions.width}&h=${optimizedDimensions.height}&fit=crop&auto=format&q=${optimizedQuality}`
-    }
-    
+    // Para imágenes locales, simplemente devolvemos la src original
+    // Next.js se encarga de la optimización automática
     return src
-  }, [src, optimizedDimensions, optimizedQuality])
+  }, [src])
 
   return (
     <div ref={ref} className={`group relative overflow-hidden rounded-2xl ${className}`}>
@@ -443,20 +431,11 @@ const BackgroundImage = ({
     return { width, height }
   }, [viewportSize])
 
-  // URL optimizada para fondos
+  // URL optimizada para fondos - simplificada para imágenes locales
   const optimizedBackgroundSrc = useMemo(() => {
-    if (src.includes('pexels.com')) {
-      const baseUrl = src.split('?')[0]
-      return `${baseUrl}?auto=compress&cs=tinysrgb&w=${backgroundDimensions.width}&h=${backgroundDimensions.height}&fit=crop&q=${backgroundQuality}`
-    }
-    
-    if (src.includes('unsplash.com')) {
-      const baseUrl = src.split('?')[0]
-      return `${baseUrl}?w=${backgroundDimensions.width}&h=${backgroundDimensions.height}&fit=crop&auto=format&q=${backgroundQuality}`
-    }
-    
+    // Para imágenes locales, Next.js maneja la optimización automáticamente
     return src
-  }, [src, backgroundDimensions, backgroundQuality])
+  }, [src])
 
   return (
     <div ref={parallaxRef} className={`absolute inset-0 ${className}`}>
@@ -480,20 +459,20 @@ const BackgroundImage = ({
   )
 }
 
-// URLs de imágenes de alta calidad (servicios confiables) con efectos modernos
+// URLs de imágenes locales optimizadas para rendimiento
 const IMAGES = {
-  hero: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=800&fit=crop&crop=center&auto=format&q=80",
-  greenTech: "https://images.pexels.com/photos/8566473/pexels-photo-8566473.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop", // Tecnología verde
-  coding: "https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop", // Código en pantalla
-  dataCenter: "https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop", // Data center moderno
-  renewable: "https://images.pexels.com/photos/9875404/pexels-photo-9875404.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop", // Energías renovables
-  team: "https://images.pexels.com/photos/7988079/pexels-photo-7988079.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop", // Equipo trabajando
-  circuit: "https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop", // Circuito electrónico
-  cloud: "https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop", // Cloud computing
-  calculator: "https://images.pexels.com/photos/5324927/pexels-photo-5324927.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop", // Calculadora/analytics
-  forest: "https://images.pexels.com/photos/1072824/pexels-photo-1072824.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop", // Bosque verde
-  sustainable: "https://images.pexels.com/photos/1236701/pexels-photo-1236701.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop", // Desarrollo sostenible
-  innovation: "https://images.pexels.com/photos/3861961/pexels-photo-3861961.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop" // Innovación tecnológica
+  hero: "/images/hero.jpg",
+  greenTech: "/images/green-tech.jpg", // Tecnología verde
+  coding: "/images/coding.jpg", // Código en pantalla
+  dataCenter: "/images/data-center.jpg", // Data center moderno
+  renewable: "/images/renewable.jpg", // Energías renovables
+  team: "/images/team.jpg", // Equipo trabajando
+  circuit: "/images/circuit.jpg", // Circuito electrónico
+  cloud: "/images/cloud.jpg", // Cloud computing
+  calculator: "/images/calculator.jpg", // Calculadora/analytics
+  forest: "/images/forest.jpg", // Bosque verde
+  sustainable: "/images/sustainable.jpg", // Desarrollo sostenible
+  innovation: "/images/innovation.jpg" // Innovación tecnológica
 }
 
 // Hook especializado para el navbar con manejo optimizado de estados
@@ -858,23 +837,15 @@ export default function GreenSoftwareApp() {
           <FloatingLeaves />
           <AnimatedCircuits />
 
-        {/* Header Visual - Optimized for hydration */}
-        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
-          navbarState.isScrolled
-            ? 'bg-white/95 backdrop-blur-md border-b border-white/20 shadow-lg' 
-            : 'bg-transparent'
-        } ${
+        {/* Header Visual - Fixed with scrolled appearance */}
+        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out bg-white/95 backdrop-blur-md border-b border-white/20 shadow-lg ${
           navbarState.isVisible ? 'translate-y-0' : '-translate-y-full'
         }`}>
           <div className="container mx-auto px-4 py-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="relative">
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-xl border-2 transition-all duration-300 ${
-                    navbarState.isScrolled
-                      ? 'bg-gradient-to-br from-green-600 to-emerald-700 border-green-200/40' 
-                      : 'bg-gradient-to-br from-green-500/95 to-emerald-600/95 backdrop-blur-sm border-white/40'
-                  }`}>
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-xl border-2 transition-all duration-300 bg-gradient-to-br from-green-600 to-emerald-700 border-green-200/40">
                     <Leaf className="h-6 w-6 text-white" />
                   </div>
                   <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
@@ -882,18 +853,10 @@ export default function GreenSoftwareApp() {
                   </div>
                 </div>
                 <div>
-                  <h1 className={`text-xl font-bold transition-colors duration-300 ${
-                    navbarState.isScrolled 
-                      ? 'text-green-700' 
-                      : 'text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,0.9)]'
-                  }`}>
+                  <h1 className="text-xl font-bold transition-colors duration-300 text-green-700">
                     Green Software
                   </h1>
-                  <p className={`text-sm font-medium transition-colors duration-300 ${
-                    navbarState.isScrolled 
-                      ? 'text-gray-600' 
-                      : 'text-green-100 drop-shadow-[1px_1px_2px_rgba(0,0,0,0.8)]'
-                  }`}>Desarrollo Sostenible</p>
+                  <p className="text-sm font-medium transition-colors duration-300 text-gray-600">Desarrollo Sostenible</p>
                 </div>
               </div>
               {/* Navigation */}
@@ -904,12 +867,8 @@ export default function GreenSoftwareApp() {
                     onClick={() => scrollToSection(section.id)}
                     className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center space-x-2 ${
                       activeSection === section.id
-                        ? navbarState.isScrolled
-                          ? "bg-green-600 text-white shadow-lg transform scale-105" 
-                          : "bg-white/20 text-white shadow-lg backdrop-blur-sm border border-white/30" 
-                        : navbarState.isScrolled
-                          ? "text-gray-700 hover:bg-green-500 hover:text-white hover:shadow-md hover:scale-105" 
-                          : "text-white/90 hover:bg-white/20 hover:text-white hover:shadow-lg hover:backdrop-blur-sm"
+                        ? "bg-green-600 text-white shadow-lg transform scale-105" 
+                        : "text-gray-700 hover:bg-green-500 hover:text-white hover:shadow-md hover:scale-105"
                     }`}
                   >
                     <section.icon className="h-4 w-4" />
@@ -920,11 +879,7 @@ export default function GreenSoftwareApp() {
 
 
               {/* Mobile Menu Button */}
-              <button className={`md:hidden p-2 rounded-lg transition-all duration-300 shadow-lg ${
-                navbarState.isScrolled 
-                  ? 'bg-green-600 text-white hover:bg-green-700' 
-                  : 'bg-black/40 text-white hover:bg-black/50 backdrop-blur-md drop-shadow-[1px_1px_2px_rgba(0,0,0,0.8)]'
-              }`}>
+              <button className="md:hidden p-2 rounded-lg transition-all duration-300 shadow-lg bg-green-600 text-white hover:bg-green-700">
                 <Settings className="h-5 w-5" />
               </button>
             </div>
@@ -1042,7 +997,7 @@ export default function GreenSoftwareApp() {
   <BackgroundImage
     src={IMAGES.sustainable}
     alt="Desarrollo sostenible"
-    parallaxSpeed={0.1}
+    parallaxSpeed={0}
     overlay="bg-gradient-to-br from-slate-50/95 via-white/90 to-green-50/95"
     quality={60}
     className="z-0"
@@ -1182,7 +1137,7 @@ export default function GreenSoftwareApp() {
   <BackgroundImage
     src={IMAGES.dataCenter}
     alt="Data center sostenible"
-    parallaxSpeed={0.2}
+    parallaxSpeed={0}
     overlay="bg-gradient-to-r from-red-900/80 to-slate-900/60"
     quality={75}
   />
@@ -1237,14 +1192,14 @@ export default function GreenSoftwareApp() {
 
       </div>
 
-      {/* --- Imagen de Impacto Visual --- */}
-      <div className="w-full overflow-hidden rounded-2xl shadow-xl">
+      {/* --- Imagen de Impacto Visual con tamaño proporcionado --- */}
+      <div className="max-w-4xl mx-auto overflow-hidden rounded-2xl shadow-xl">
         <OptimizedImage
           src={IMAGES.dataCenter}
           alt="Centro de datos consumiendo energía"
-          className="w-full h-full object-cover"
-          width={1200}
-          height={600}
+          className="w-full h-80 object-cover"
+          width={800}
+          height={320}
         />
       </div>
 
@@ -1258,7 +1213,7 @@ export default function GreenSoftwareApp() {
             <BackgroundImage
               src={IMAGES.renewable}
               alt="Energías renovables"
-              parallaxSpeed={0.25}
+              parallaxSpeed={0}
               overlay="bg-gradient-to-br from-emerald-800/70 to-green-800/50"
               quality={80}
             />
@@ -1391,7 +1346,7 @@ export default function GreenSoftwareApp() {
             <BackgroundImage
               src={IMAGES.team}
               alt="Equipo tech colaborando"
-              parallaxSpeed={0.15}
+              parallaxSpeed={0}
               overlay="bg-gradient-to-br from-blue-900/70 to-indigo-800/60"
               quality={75}
             />
@@ -1547,14 +1502,23 @@ export default function GreenSoftwareApp() {
           </section>
 
           {/* Cuándo implementar */}
-          <section id="cuando" className="py-20 bg-blue-50/80 backdrop-blur-md">
-            <div className="container mx-auto px-4">
+          <section id="cuando" className="relative py-20 overflow-hidden">
+            {/* Background Image with Parallax Effect */}
+            <BackgroundImage
+              src={IMAGES.circuit}
+              alt="Circuitos y tecnología del futuro"
+              parallaxSpeed={0}
+              overlay="bg-gradient-to-br from-blue-900/70 to-indigo-800/60"
+              quality={75}
+            />
+            
+            <div className="container mx-auto px-4 relative z-10">
               <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-16">
-                  <h2 className="text-4xl font-bold text-gray-800 mb-6">
-                    ¿<span className="text-blue-600">Cuándo</span> implementar Green Software?
+                  <h2 className="text-4xl font-bold text-white mb-6">
+                    ¿<span className="text-blue-400">Cuándo</span> implementar Green Software?
                   </h2>
-                  <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                  <p className="text-xl text-gray-200 max-w-3xl mx-auto">
                     El momento perfecto es AHORA. Cada día cuenta en la lucha contra el cambio climático.
                   </p>
                 </div>
@@ -1667,7 +1631,7 @@ export default function GreenSoftwareApp() {
             <BackgroundImage
               src={IMAGES.cloud}
               alt="Representación cloud verde"
-              parallaxSpeed={0.3}
+              parallaxSpeed={0}
               overlay="bg-gradient-to-br from-green-900/70 to-teal-800/60"
               quality={75}
             />
@@ -1795,7 +1759,7 @@ export default function GreenSoftwareApp() {
             <BackgroundImage
               src={IMAGES.coding}
               alt="Desarrollador trabajando en código sostenible"
-              parallaxSpeed={0.2}
+              parallaxSpeed={0}
               overlay="bg-gradient-to-br from-purple-900/70 to-indigo-900/60"
               quality={80}
             />
@@ -1826,8 +1790,8 @@ export default function GreenSoftwareApp() {
                         1
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold text-gray-800 mb-2">Audit & Benchmark</h3>
-                        <p className="text-gray-600">Mide el consumo actual de recursos y establece métricas baseline.</p>
+                        <h3 className="text-lg font-semibold text-white mb-2">Audit & Benchmark</h3>
+                        <p className="text-gray-200">Mide el consumo actual de recursos y establece métricas baseline.</p>
                       </div>
                     </div>
 
@@ -1836,8 +1800,8 @@ export default function GreenSoftwareApp() {
                         2
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold text-gray-800 mb-2">Identify Hotspots</h3>
-                        <p className="text-gray-600">Encuentra los componentes que más recursos consumen en tu aplicación.</p>
+                        <h3 className="text-lg font-semibold text-white mb-2">Identify Hotspots</h3>
+                        <p className="text-gray-200">Encuentra los componentes que más recursos consumen en tu aplicación.</p>
                       </div>
                     </div>
 
@@ -1846,8 +1810,8 @@ export default function GreenSoftwareApp() {
                         3
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold text-gray-800 mb-2">Optimize Code</h3>
-                        <p className="text-gray-600">Refactoriza algoritmos, elimina código muerto y optimiza queries.</p>
+                        <h3 className="text-lg font-semibold text-white mb-2">Optimize Code</h3>
+                        <p className="text-gray-200">Refactoriza algoritmos, elimina código muerto y optimiza queries.</p>
                       </div>
                     </div>
 
@@ -1856,8 +1820,8 @@ export default function GreenSoftwareApp() {
                         4
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold text-gray-800 mb-2">Infrastructure Tuning</h3>
-                        <p className="text-gray-600">Configura auto-scaling, usa contenedores eficientes y CDNs optimizados.</p>
+                        <h3 className="text-lg font-semibold text-white mb-2">Infrastructure Tuning</h3>
+                        <p className="text-gray-200">Configura auto-scaling, usa contenedores eficientes y CDNs optimizados.</p>
                       </div>
                     </div>
 
@@ -1866,8 +1830,8 @@ export default function GreenSoftwareApp() {
                         5
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold text-gray-800 mb-2">Monitor & Iterate</h3>
-                        <p className="text-gray-600">Implementa métricas continuas y mejora iterativamente.</p>
+                        <h3 className="text-lg font-semibold text-white mb-2">Monitor & Iterate</h3>
+                        <p className="text-gray-200">Implementa métricas continuas y mejora iterativamente.</p>
                       </div>
                     </div>
                   </div>
@@ -1962,7 +1926,7 @@ export default function GreenSoftwareApp() {
             <BackgroundImage
               src={IMAGES.innovation}
               alt="Interfaz moderna con íconos verdes"
-              parallaxSpeed={0.25}
+              parallaxSpeed={0}
               overlay="bg-gradient-to-br from-purple-900/70 to-pink-900/60"
               quality={75}
             />
@@ -2096,7 +2060,7 @@ export default function GreenSoftwareApp() {
 
                 <div className="text-center">
                   <OptimizedImage
-                    src={IMAGES.calculator}
+                    src={IMAGES.innovation}
                     alt="Herramientas de desarrollo sostenible"
                     className="w-full h-64 mx-auto"
                   />
@@ -2112,7 +2076,7 @@ export default function GreenSoftwareApp() {
             <BackgroundImage
               src={IMAGES.calculator}
               alt="Cálculo energético en tablet"
-              parallaxSpeed={0.1}
+              parallaxSpeed={0}
               overlay="bg-gradient-to-br from-green-900/70 to-emerald-800/60"
               quality={80}
             />
